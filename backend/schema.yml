@@ -1,0 +1,7 @@
+openapi: 3.0.3
+info:
+  title: Ticket System
+  version: 0.0.1
+  description: contribute ticketing system for practise as team
+paths: {}
+components: {}
