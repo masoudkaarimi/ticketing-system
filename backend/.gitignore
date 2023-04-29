@@ -1,6 +1,6 @@
 __cache__/
-__pychache__/
+__pycache__/
 venv/
 .env
 *.db
-db.sqllite3
+db.sqlite3
