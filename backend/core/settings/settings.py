@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     # external packages
     'drf_spectacular',
     'rest_framework',
-    'django_filters'
+    'django_filters',
+    'mptt',
 
 ]
 
