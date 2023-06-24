@@ -20,7 +20,8 @@ class Category(MPTTModel):
 
     slug = models.SlugField(allow_unicode=True, blank=True, null=True,
                             help_text=_("format:safe url , underscore , hyphen , dash  allowed"))
-    parent = TreeForeignKey('self', verbose_name=_("Parent"), on_delete=models.CASCADE, null=True, blank=True)
+    parent = TreeForeignKey('self', verbose_name=_("Parent"), related_name="children", on_delete=models.CASCADE,
+                            null=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name=_("Visibility"), help_text=_("format:true=visible"))
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -57,7 +58,8 @@ class Ticket(MPTTModel):
     message = models.TextField(max_length=3000, verbose_name=_("Message"), blank=True, null=True)
     priority = models.ForeignKey(Priority, related_name="ticket_priority", verbose_name=_("Priority"), blank=False,
                                  null=False, on_delete=models.PROTECT)
-    parent = TreeForeignKey('self', verbose_name=_("Parent"), null=True, blank=True, on_delete=models.CASCADE)
+    parent = TreeForeignKey('self', verbose_name=_("Parent"), related_name="children", null=True, blank=True,
+                            on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True, verbose_name=_("Visibility"), help_text=_("format:true=visible"))
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)

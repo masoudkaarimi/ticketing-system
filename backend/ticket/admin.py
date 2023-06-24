@@ -1,8 +1,10 @@
 from django.contrib import admin
 from .models import Ticket, Category, Media, Priority
 from mptt.admin import MPTTModelAdmin
+from django.contrib.auth.models import Permission,ContentType
 
-
+admin.site.register(Permission)
+admin.site.register(ContentType)
 # Register your models here.
 
 class TicketAdmin(admin.ModelAdmin):
