@@ -46,22 +46,22 @@ class UserRegister(views.APIView):
                             email=email
                         )
                         if user:
-                            response = {
-                                "success": True,
-                            }
-                            return Response(response, status=status.HTTP_201_CREATED)
+                            return Response({"success": "user successfully created"}, status=status.HTTP_201_CREATED)
                         else:
                             return Response(
                                 {"error": "could not create user"},
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
                             )
                     else:
-                        return Response({"error": "use already exists"}, status=status.HTTP_400_BAD_REQUEST)
+                        return Response(
+                            {"error": "a user with this email or username already exist"},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
                 else:
-                    return Response({"error": "password do not match"}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({"error": "passwords do not match"}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response(
-                    {"error": "username , password , confirm password required"},
+                    {"error": "username, password, confirm password required"},
                     status=status.HTTP_400_BAD_REQUEST
                 )
         except:
