@@ -1,4 +1,4 @@
-export const DEBUG_MODE = process.env.DEBUG;
-export const BASE_API_URL = process.env.BASE_API_URL;
-export const PUBLIC_CLIENT_ID = process.env.CLIENT_ID;
-export const PUBLIC_CLIENT_SECRET = process.env.CLIENT_SECRET;
+export const DEBUG_MODE = import.meta.env.VITE_DEBUG;
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
+export const PUBLIC_CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
+export const PUBLIC_CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;

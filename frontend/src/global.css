@@ -1,5 +1,9 @@
 #root {}
 
+* {
+    /*font-family: sans-serif !important;*/
+}
+
 html {
     margin: 0;
     padding: 0;
