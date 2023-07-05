@@ -6,25 +6,27 @@ import { Toaster } from "react-hot-toast";
 import Providers from "./Providers";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-    <Providers>
-      <App />
-      <Toaster
+  <React.StrictMode>
+    <React.Suspense fallback={<span>Loading...</span>}>
+      <Providers>
+        <App />
+        <Toaster
           position="top-center"
           toastOptions={{
-              duration: 5000,
-              style   : {
-                  fontFamily: "roboto,sans-serif"
+            duration: 5000,
+            style: {
+              fontFamily: "roboto,sans-serif",
+            },
+            success: {
+              duration: 3000,
+              theme: {
+                primary: "green",
+                secondary: "black",
               },
-              success : {
-                  duration: 3000,
-                  theme   : {
-                      primary  : "green",
-                      secondary: "black"
-                  }
-              }
+            },
           }}
-      />
-    </Providers>
+        />
+      </Providers>
+    </React.Suspense>
   </React.StrictMode>
 );
