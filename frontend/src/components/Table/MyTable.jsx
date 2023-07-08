@@ -8,12 +8,16 @@ import TableRow from '@mui/material/TableRow';
 const MyTable = ({ data, keys }) => {
 	return (
 		<TableContainer sx={{ height: '330px' }}>
-			<Table sx={{ minWidth: 650, marginTop: 5, height: '300px' }} stickyHeader size={'small'}>
+			<Table sx={{ minWidth: 650, marginTop: 5 }} stickyHeader size={'small'}>
 				<TableHead>
 					<TableRow
 						sx={{
 							backgroundColor: 'grey.main',
-							'& .MuiTableCell-root': { color: 'grey.contrastText', backgroundColor: 'inherit' },
+							'& .MuiTableCell-root': {
+								color: 'grey.contrastText',
+								textTransform: 'capitalize',
+								backgroundColor: 'inherit',
+							},
 						}}
 					>
 						{keys.map((item, index) => (
@@ -24,16 +28,15 @@ const MyTable = ({ data, keys }) => {
 					</TableRow>
 				</TableHead>
 				<TableBody
-					sx={{
-						'& .MuiTableRow-root .MuiTableCell-root': {
-							paddingY: 2,
-						},
-						'& .MuiTableRow-root:hover': {
-							backgroundColor: 'var(--grey-dark) !important',
-						},
-						'& .MuiTableRow-root:hover .MuiTableCell-root': {
-							color: 'var(--text-main) !important',
-						},
+					sx={(theme) => {
+						return {
+							'& .MuiTableRow-root .MuiTableCell-root': {
+								py: 1,
+							},
+							'& .MuiTableRow-root:hover': {
+								backgroundColor: theme.palette.grey[100],
+							},
+						};
 					}}
 				>
 					{data?.map((item, index) => (

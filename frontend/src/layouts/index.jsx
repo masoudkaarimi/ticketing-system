@@ -1,12 +1,14 @@
 import { Container } from '@mui/material';
-import Header from '../components/base/Header';
+import { Outlet } from 'react-router-dom';
+import Header from '../components/Base/Header';
 
-const MainLayout = ({ children }) => {
-	console.log(children);
+const MainLayout = () => {
 	return (
 		<>
 			<Header />
-			<Container maxWidth='xl'>{children}</Container>
+			<Container maxWidth='xl' sx={{ pt: 5 }}>
+				<Outlet />
+			</Container>
 		</>
 	);
 };

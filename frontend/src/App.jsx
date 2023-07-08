@@ -7,6 +7,7 @@ import MainLayout from './layouts/index.jsx';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Ticket from './pages/Ticket.jsx';
 
 let access_token, refresh_token;
 
@@ -56,6 +57,15 @@ function App() {
 						element={
 							<RestrictPage path='/login' type='isAuthenticated'>
 								<Dashboard />
+							</RestrictPage>
+						}
+					/>
+					<Route
+						path='/ticket/:id/'
+						index
+						element={
+							<RestrictPage path='/login' type='isAuthenticated'>
+								<Ticket />
 							</RestrictPage>
 						}
 					/>
