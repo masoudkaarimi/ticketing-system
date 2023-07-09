@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import CategoryList, PriorityList, TicketView, TicketRetrieveView
 
-appname = "ticket"
+app_name = "ticketApi"
 
 urlpatterns = [
     path("category/", CategoryList.as_view(), name="categoryList"),

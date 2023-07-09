@@ -38,7 +38,7 @@ class RecursiveTicketField(serializers.Serializer):
 class BasicTicketSerializer(serializers.ModelSerializer):
     category = BasicCategorySerializer()
     priority = BasicPrioritySerializer()
-    children = RecursiveCategoryField(many=True, read_only=False)
+    children = RecursiveTicketField(many=True, read_only=False)
     user = SafeUserSerializer(read_only=True)
     attachment = serializers.SerializerMethodField()
 

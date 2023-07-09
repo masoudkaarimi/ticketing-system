@@ -4,11 +4,12 @@ from rest_framework.response import Response
 from .serializers import BasicUserSerializer
 from django.contrib.auth.models import User
 from django.db.models import Q
+from drf_spectacular.utils import extend_schema
 
 
 # Create your views here.
 
-
+@extend_schema(tags=["Account"])
 class UserVerify(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -22,6 +23,7 @@ class UserVerify(views.APIView):
         return Response(response, status=status.HTTP_200_OK)
 
 
+@extend_schema(tags=["Account"])
 class UserRegister(views.APIView):
     permission_classes = [permissions.AllowAny]
 

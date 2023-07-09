@@ -23,10 +23,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/tickets/', include('ticket.urls')),
-    path('api/account/', include('account.urls')),
-    path('api/cms/', include('cms.urls')),
-    path('api-auth/', include('rest_framework.urls')),
+    path('api/tickets/', include('ticket.urls',namespace="cmsApi")),
+    path('api/account/', include('account.urls',namespace="ticketApi")),
+    path('api/cms/', include('cms.urls',namespace="cmsApi")),
+    path('api-auth/', include('rest_framework.urls',)),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     re_path(r'^auth/', include('drf_social_oauth2.urls', namespace='drf')),
     # Optional UI:

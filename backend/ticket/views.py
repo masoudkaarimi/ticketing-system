@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import Category, Priority, Ticket
 from .serializers import BasicCategorySerializer, BasicPrioritySerializer, BasicTicketSerializer
 from django.utils.translation import gettext_lazy as _
+from drf_spectacular.utils import extend_schema
 
 
 # Create your views here.
@@ -11,10 +12,11 @@ class TicketRetrieveView(generics.RetrieveAPIView):
     permissions = [permissions.AllowAny]
     serializer_class = BasicTicketSerializer
 
+    @extend_schema(tags=["Ticket"])
     def get(self, request, pk=None):
         user = request.user
         try:
-            queryset = Ticket.objects.filter(pk=pk,user=user)
+            queryset = Ticket.objects.filter(pk=pk, user=user)
             if queryset.exists:
                 serializer = self.serializer_class(queryset.first(), context={"request": request})
                 response = {
@@ -32,7 +34,7 @@ class TicketRetrieveView(generics.RetrieveAPIView):
             return Response(
                 {"error": "something whent wrong when trying retrieve ticket"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
-                )
+            )
 
 
 class TicketView(views.APIView):
@@ -40,6 +42,7 @@ class TicketView(views.APIView):
     pagination_class = pagination.PageNumberPagination
     serializer_class = BasicTicketSerializer
 
+    @extend_schema(tags=["Ticket"])
     def get(self, request):
         user = request.user
         try:
@@ -67,8 +70,9 @@ class TicketView(views.APIView):
             return Response(
                 {"error": _("something went wrong when trying get ticket list")},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
-                )
+            )
 
+    @extend_schema(tags=["Ticket"])
     def post(self, request, **kwargs):
         data = request.data
         try:
@@ -89,15 +93,17 @@ class TicketView(views.APIView):
             return Response(
                 {"error": _("something went wrong when trying create new ticket")},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
-                )
+            )
 
 
+@extend_schema(tags=["Ticket"])
 class CategoryList(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Category.objects.filter(level=0)
     serializer_class = BasicCategorySerializer
 
 
+@extend_schema(tags=["Ticket"])
 class PriorityList(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Priority.objects.all()
