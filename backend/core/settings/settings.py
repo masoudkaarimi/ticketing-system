@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # internal apps
     'ticket',
     'account',
+    'cms',
     # external packages
     'drf_spectacular',
     'rest_framework',

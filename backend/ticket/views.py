@@ -14,7 +14,7 @@ class TicketRetrieveView(generics.RetrieveAPIView):
     def get(self, request, pk=None):
         user = request.user
         try:
-            queryset = Ticket.objects.filter(pk=pk)
+            queryset = Ticket.objects.filter(pk=pk,user=user)
             if queryset.exists:
                 serializer = self.serializer_class(queryset.first(), context={"request": request})
                 response = {
@@ -29,8 +29,10 @@ class TicketRetrieveView(generics.RetrieveAPIView):
                 }
                 return Response(response, status.HTTP_404_NOT_FOUND)
         except:
-            return Response({"error": "something whent wrong when trying retrieve ticket"},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"error": "something whent wrong when trying retrieve ticket"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
 
 
 class TicketView(views.APIView):
@@ -62,14 +64,15 @@ class TicketView(views.APIView):
                 }
                 return Response(response, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response({"error": _("something went wrong when trying get ticket list")},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"error": _("something went wrong when trying get ticket list")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
 
     def post(self, request, **kwargs):
         data = request.data
         try:
-            from django.contrib.auth.models import User
-            user = User.objects.all().first().id
+            user = request.data
             data["user"] = user
             serializer = self.serializer_class(data=data, context={"request": request}, many=False)
             if serializer.is_valid():
@@ -83,8 +86,10 @@ class TicketView(views.APIView):
                 response = {"error": serializer.errors, "success": False, "test": _("hello mamad")}
                 return Response(response, status=status.HTTP_400_BAD_REQUEST)
         except:
-            return Response({"error": _("something went wrong when trying create new ticket")},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"error": _("something went wrong when trying create new ticket")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
 
 
 class CategoryList(generics.ListAPIView):

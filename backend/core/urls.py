@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/tickets/', include('ticket.urls')),
     path('api/account/', include('account.urls')),
+    path('api/cms/', include('cms.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     re_path(r'^auth/', include('drf_social_oauth2.urls', namespace='drf')),
@@ -29,4 +33,7 @@ urlpatterns = [
     path('api/schema/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     # re_path(r'^rosetta/', include('rosetta.urls')),
     # path('api/schema/docs/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)
