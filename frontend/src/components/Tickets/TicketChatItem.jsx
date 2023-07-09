@@ -8,8 +8,21 @@ const TicketChatItem = ({ data }) => {
 
 	return (
 		<>
-			<Box sx={{ width: '85%', alignSelf: isUser ? 'flex-end' : 'flex-start', mb: 3 }}>
-				<Stack direction='row' alignItems='center' gap={1} sx={{}}>
+			<Box
+				sx={{
+					width: '85%',
+					display: 'flex',
+					flexDirection: 'column',
+					alignSelf: isUser ? 'flex-end' : 'flex-start',
+					mb: 3,
+				}}
+			>
+				<Stack
+					direction='row'
+					alignItems='center'
+					gap={1}
+					sx={{ alignSelf: isUser ? 'flex-end' : 'flex-start', display: isUser ? 'none' : 'flex' }}
+				>
 					<Typography
 						variant='subtitle1'
 						fontWeight='500'
@@ -34,7 +47,7 @@ const TicketChatItem = ({ data }) => {
 				<Box
 					sx={(theme) => {
 						return {
-							backgroundColor: isUser ? theme.palette.grey[50] : theme.palette.grey['A200'],
+							backgroundColor: isUser ? theme.palette.grey[50] : theme.palette.grey['A100'],
 							borderRadius: 2,
 							mt: 1,
 							p: 1.5,

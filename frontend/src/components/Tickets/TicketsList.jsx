@@ -1,10 +1,19 @@
 import { Visibility } from '@mui/icons-material';
 import { Chip, IconButton, Stack, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import { getTicketsAdmin } from '../../features/services/TicketService';
 import MyTable from '../Table/MyTable';
 
 const TicketsList = () => {
-	return <MyTable data={mockData} keys={TICKETS_HEADERS} />;
+	const ticketsQuery = useQuery({
+		queryKey: ['tickets'],
+		queryFn: getTicketsAdmin,
+	});
+
+	console.log(ticketsQuery?.data?.results);
+
+	return <MyTable data={ticketsQuery?.data?.results} keys={TICKETS_HEADERS} />;
 };
 
 const TICKETS_HEADERS = [
@@ -19,14 +28,14 @@ const TICKETS_HEADERS = [
 		title: 'user',
 		align: 'center',
 		render(data) {
-			return <Typography variant={'body2'}>{data?.user?.username}</Typography>;
+			return <Typography variant={'body2'}>{data?.user}</Typography>;
 		},
 	},
 	{
 		title: 'subject',
 		align: 'center',
 		render(data) {
-			return <Typography variant={'body2'}>{data?.subject}</Typography>;
+			return <Typography variant={'body2'}>{data?.title}</Typography>;
 		},
 	},
 	{
@@ -59,14 +68,14 @@ const TICKETS_HEADERS = [
 		title: 'priority',
 		align: 'center',
 		render(data) {
-			return <Chip color='default' variant={'soft'} label={data?.priority} />;
+			return <Chip color='default' variant={'soft'} label={data?.priority?.name} />;
 		},
 	},
 	{
 		title: 'category',
 		align: 'center',
 		render(data) {
-			return <Typography variant={'body2'}>{data?.category}</Typography>;
+			return <Typography variant={'body2'}>{data?.category?.name}</Typography>;
 		},
 	},
 	{
@@ -78,7 +87,7 @@ const TICKETS_HEADERS = [
 					{new Intl.DateTimeFormat('en-GB', {
 						dateStyle: 'full',
 						timeStyle: 'short',
-					}).format(new Date(data?.create_at))}
+					}).format(new Date(data?.update_at))}
 				</Typography>
 			);
 		},

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import RestrictPage from './RestrictPage.jsx';
-import { checkAuth, requestRefreshToken } from './features/actions/authActions';
+import { checkAuth, requestRefreshToken } from './features/redux/actions/authActions';
 import MainLayout from './layouts/index.jsx';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';

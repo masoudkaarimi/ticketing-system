@@ -1,4 +1,5 @@
-import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
+import { AttachmentRounded, SendRounded } from '@mui/icons-material';
+import { Box, Card, CardContent, Divider, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import TicketChatItem from '../Tickets/TicketChatItem';
 
 const TicketChatList = () => {
@@ -13,6 +14,32 @@ const TicketChatList = () => {
 					{mockData?.map((item, index) => (
 						<TicketChatItem key={index} data={item} />
 					))}
+				</Box>
+
+				<Divider />
+
+				<Box sx={{ p: 2, mt: 2, mx: 'auto', borderRadius: 2 }}>
+					<TextField
+						id='ticket_reply'
+						variant='standard'
+						label='Your Message'
+						multiline
+						fullWidth
+						rows={4}
+						size='small'
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position='end'>
+									<IconButton color='inherit'>
+										<AttachmentRounded fontSize='large' />
+									</IconButton>
+									<IconButton color='primary'>
+										<SendRounded fontSize='large' />
+									</IconButton>
+								</InputAdornment>
+							),
+						}}
+					/>
 				</Box>
 			</CardContent>
 		</Card>

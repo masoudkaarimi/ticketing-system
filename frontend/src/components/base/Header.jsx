@@ -6,7 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../../features/actions/authActions';
+import { logout } from '../../features/redux/actions/authActions';
 
 function ResponsiveAppBar() {
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -16,7 +16,7 @@ function ResponsiveAppBar() {
 	const { user, isAuthenticated } = useSelector((state) => state.authReducer);
 
 	const handleLogout = () => {
-		dispatch(logout);
+		dispatch(logout());
 	};
 
 	const handleClick = (event) => {

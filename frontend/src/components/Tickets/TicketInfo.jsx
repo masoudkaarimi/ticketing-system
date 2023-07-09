@@ -13,37 +13,37 @@ const TicketInfo = () => {
 						<Typography variant='subtitle1' fontWeight='500'>
 							NO
 						</Typography>
-						<Typography variant='subtitle2'>1</Typography>
+						<Typography variant='body2'>1</Typography>
 					</Grid>
 					<Grid item xs={8}>
 						<Typography variant='subtitle1' fontWeight='500'>
 							Subject
 						</Typography>
-						<Typography variant='subtitle2'>Test 1</Typography>
+						<Typography variant='body2'>Test 1</Typography>
 					</Grid>
 					<Grid item xs={4}>
 						<Typography variant='subtitle1' fontWeight='500'>
 							Status
 						</Typography>
-						<Typography variant='subtitle2'>Pending</Typography>
+						<Typography variant='body2'>Pending</Typography>
 					</Grid>
 					<Grid item xs={4}>
 						<Typography variant='subtitle1' fontWeight='500'>
 							Priority
 						</Typography>
-						<Typography variant='subtitle2'>Low</Typography>
+						<Typography variant='body2'>Low</Typography>
 					</Grid>
 					<Grid item xs={4}>
 						<Typography variant='subtitle1' fontWeight='500'>
 							Category
 						</Typography>
-						<Typography variant='subtitle2'>Development</Typography>
+						<Typography variant='body2'>Development</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='subtitle1' fontWeight='500'>
 							Last Update
 						</Typography>
-						<Typography variant='subtitle2'>2001-10-26 03:30</Typography>
+						<Typography variant='body2'>2001-10-26 03:30</Typography>
 					</Grid>
 				</Grid>
 			</CardContent>
