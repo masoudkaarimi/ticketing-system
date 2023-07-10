@@ -2,18 +2,17 @@ import { Visibility } from '@mui/icons-material';
 import { Chip, IconButton, Stack, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { getTicketsAdmin } from '../../features/services/TicketService';
+import { getTicketsAdminApi } from '../../features/services/TicketService';
+import { formatDate } from '../../features/utils';
 import MyTable from '../Table/MyTable';
 
 const TicketsList = () => {
 	const ticketsQuery = useQuery({
 		queryKey: ['tickets'],
-		queryFn: getTicketsAdmin,
+		queryFn: getTicketsAdminApi,
 	});
 
-	console.log(ticketsQuery?.data?.results);
-
-	return <MyTable data={ticketsQuery?.data?.results} keys={TICKETS_HEADERS} />;
+	return <MyTable data={ticketsQuery?.data?.results} keys={TICKETS_HEADERS} isLoading={ticketsQuery.isLoading} />;
 };
 
 const TICKETS_HEADERS = [
@@ -28,7 +27,7 @@ const TICKETS_HEADERS = [
 		title: 'user',
 		align: 'center',
 		render(data) {
-			return <Typography variant={'body2'}>{data?.user}</Typography>;
+			return <Typography variant={'body2'}>{data?.user?.username}</Typography>;
 		},
 	},
 	{
@@ -68,7 +67,14 @@ const TICKETS_HEADERS = [
 		title: 'priority',
 		align: 'center',
 		render(data) {
-			return <Chip color='default' variant={'soft'} label={data?.priority?.name} />;
+			return (
+				<Chip
+					color={`${data?.priority?.color || 'success'}`}
+					variant={'soft'}
+					label={data?.priority?.name.toLowerCase()}
+					sx={{ minWidth: '80px', '& .MuiChip-label': { textTransform: 'capitalize' } }}
+				/>
+			);
 		},
 	},
 	{
@@ -82,14 +88,7 @@ const TICKETS_HEADERS = [
 		title: 'date',
 		align: 'left',
 		render(data) {
-			return (
-				<Typography variant={'body2'}>
-					{new Intl.DateTimeFormat('en-GB', {
-						dateStyle: 'full',
-						timeStyle: 'short',
-					}).format(new Date(data?.update_at))}
-				</Typography>
-			);
+			return <Typography variant={'body2'}>{formatDate(data?.create_at)}</Typography>;
 		},
 	},
 	{

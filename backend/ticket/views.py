@@ -16,7 +16,7 @@ class TicketRetrieveView(generics.RetrieveAPIView):
     def get(self, request, pk=None):
         user = request.user
         try:
-            queryset = Ticket.objects.filter(pk=pk, user=user)
+            queryset = Ticket.objects.filter(pk=pk)
             if queryset.exists:
                 serializer = self.serializer_class(queryset.first(), context={"request": request})
                 response = {
@@ -46,7 +46,7 @@ class TicketView(views.APIView):
     def get(self, request):
         user = request.user
         try:
-            queryset = Ticket.objects.all()
+            queryset = Ticket.objects.filter(level=0)
             if queryset.exists():
                 paginator = self.pagination_class()
                 paginator.page_size = 25

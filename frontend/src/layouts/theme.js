@@ -118,33 +118,33 @@ export const themeSettings = (mode) => {
 				  }),
 		},
 		components: {
-			/*MuiChip: {
-              styleOverrides: {
-                root: ({ ownerState, theme }) =>
-                  ownerState.variant === "soft" && {
-                    backgroundColor:
-                      ownerState.color === "success"
-                        ? theme.palette.soft.success.light
-                        : ownerState.color === "info"
-                        ? theme.palette.soft.info.light
-                        : ownerState.color === "warning"
-                        ? theme.palette.soft.warning.light
-                        : ownerState.color === "error"
-                        ? theme.palette.soft.error.light
-                        : theme.palette.soft.default.light,
-                    color:
-                      ownerState.color === "success"
-                        ? theme.palette.soft.success.main
-                        : ownerState.color === "info"
-                        ? theme.palette.soft.info.main
-                        : ownerState.color === "warning"
-                        ? theme.palette.soft.warning.main
-                        : ownerState.color === "error"
-                        ? theme.palette.soft.error.main
-                        : theme.palette.soft.default.main,
-                  },
-              },
-            },*/
+			MuiChip: {
+				styleOverrides: {
+					root: ({ ownerState, theme }) =>
+						ownerState.variant === 'soft' && {
+							backgroundColor:
+								ownerState.color === 'success'
+									? theme.palette.soft.success.light
+									: ownerState.color === 'info'
+									? theme.palette.soft.info.light
+									: ownerState.color === 'warning'
+									? theme.palette.soft.warning.light
+									: ownerState.color === 'error'
+									? theme.palette.soft.error.light
+									: theme.palette.soft.default.light,
+							color:
+								ownerState.color === 'success'
+									? theme.palette.soft.success.main
+									: ownerState.color === 'info'
+									? theme.palette.soft.info.main
+									: ownerState.color === 'warning'
+									? theme.palette.soft.warning.main
+									: ownerState.color === 'error'
+									? theme.palette.soft.error.main
+									: theme.palette.soft.default.main,
+						},
+				},
+			},
 			MuiPaper: {
 				/*styleOverrides: {
                   root: ({ ownerState, theme }) => ({

@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TicketsList from '../components/Tickets/TicketsList';
 
 const Dashboard = () => {
@@ -10,9 +10,14 @@ const Dashboard = () => {
 
 	return (
 		<>
-			<Typography variant='h5' component='h2' fontWeight='500'>
-				Tickets List
-			</Typography>
+			<Stack direction={'row'} justifyContent={'space-between'}>
+				<Typography variant='h5' component='h2' fontWeight='500'>
+					Tickets List
+				</Typography>
+				<Button variant='contained' size={'small'} component={Link} to={'/add-ticket'}>
+					Add New Ticket
+				</Button>
+			</Stack>
 			<TicketsList />
 		</>
 	);

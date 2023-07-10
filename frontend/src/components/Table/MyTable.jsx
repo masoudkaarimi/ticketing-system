@@ -1,13 +1,15 @@
+import { Skeleton } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { repeatComponent } from '../../features/utils';
 
-const MyTable = ({ data, keys }) => {
+const MyTable = ({ data, keys, isLoading }) => {
 	return (
-		<TableContainer sx={{ height: '330px' }}>
+		<TableContainer sx={{ minHeight: '330px' }}>
 			<Table sx={{ minWidth: 650, marginTop: 5 }} stickyHeader size={'small'}>
 				<TableHead>
 					<TableRow
@@ -33,24 +35,42 @@ const MyTable = ({ data, keys }) => {
 							'& .MuiTableRow-root .MuiTableCell-root': {
 								py: 1,
 							},
-							'& .MuiTableRow-root:hover': {
-								backgroundColor: theme.palette.grey[100],
-							},
 						};
 					}}
 				>
-					{data?.map((item, index) => (
-						<TableRow key={index}>
-							{keys.map((key, i) => (
-								<TableCell key={i} align={key.align}>
-									{key.render(item)}
-								</TableCell>
-							))}
-						</TableRow>
-					))}
+					{!isLoading
+						? data?.map((item, index) => (
+								<TableRow
+									key={index}
+									sx={(theme) => {
+										return {
+											'&.MuiTableRow-root:hover': {
+												backgroundColor: theme.palette.grey[50],
+											},
+										};
+									}}
+								>
+									{keys.map((key, i) => (
+										<TableCell key={i} align={key.align}>
+											{key.render(item)}
+										</TableCell>
+									))}
+								</TableRow>
+						  ))
+						: repeatComponent(TableSkeleton, 4)}
 				</TableBody>
 			</Table>
 		</TableContainer>
 	);
 };
 export default MyTable;
+
+const TableSkeleton = () => {
+	return (
+		<TableRow>
+			<TableCell colSpan={8}>
+				<Skeleton variant='rounded' animation={'wave'} width={'100%'} height={35} />
+			</TableCell>
+		</TableRow>
+	);
+};
