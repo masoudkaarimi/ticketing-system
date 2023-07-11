@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics, status, permissions, authentication, views, pagination
 from rest_framework.response import Response
 from .models import Category, Priority, Ticket
-from .serializers import BasicCategorySerializer, BasicPrioritySerializer, BasicTicketSerializer
+from .serializers import BasicCategorySerializer, BasicPrioritySerializer, BasicTicketSerializer, TicketCreateSerializer
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 
@@ -75,25 +75,20 @@ class TicketView(views.APIView):
     @extend_schema(tags=["Ticket"])
     def post(self, request, **kwargs):
         data = request.data
-        try:
-            user = request.data
-            data["user"] = user
-            serializer = self.serializer_class(data=data, context={"request": request}, many=False)
-            if serializer.is_valid():
-                serializer.save()
-                response = {
-                    "success": True,
-                    "results": serializer.data,
-                }
-                return Response(response, status=status.HTTP_201_CREATED)
-            else:
-                response = {"error": serializer.errors, "success": False, "test": _("hello mamad")}
-                return Response(response, status=status.HTTP_400_BAD_REQUEST)
-        except:
-            return Response(
-                {"error": _("something went wrong when trying create new ticket")},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+        user = request.user
+        print(data)
+        data["user"] = user.id
+        serializer = TicketCreateSerializer(data=data, context={"request": request}, many=False)
+        if serializer.is_valid():
+            serializer.save()
+            response = {
+                "success": True,
+                "results": serializer.data,
+            }
+            return Response(response, status=status.HTTP_201_CREATED)
+        else:
+            response = {"error": serializer.errors, "success": False}
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
 @extend_schema(tags=["Ticket"])

@@ -101,12 +101,17 @@ class Ticket(MPTTModel):
         return str(self.id)
 
 
+def media_dynamic(instance, filename):
+    timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+    return f'ticket/images/{timestamp}-{filename}'
+
+
 class Media(models.Model):
     ticket = models.ForeignKey(
         Ticket, related_name="media_ticket", verbose_name=_("Belongs To"), blank=True,
         null=True, on_delete=models.SET_NULL
     )
-    image = models.ImageField(upload_to="ticket/images/", )
+    image = models.ImageField(upload_to=media_dynamic)
     is_active = models.BooleanField(default=True, verbose_name=_("Visibility"), help_text=_("format:true=visible"))
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)

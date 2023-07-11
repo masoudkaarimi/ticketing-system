@@ -35,6 +35,12 @@ class RecursiveTicketField(serializers.Serializer):
         return serializer.data
 
 
+class TicketCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = ["category", "user", "status", "title", "message", "priority", "parent", ]
+
+
 class BasicTicketSerializer(serializers.ModelSerializer):
     category = BasicCategorySerializer()
     priority = BasicPrioritySerializer()

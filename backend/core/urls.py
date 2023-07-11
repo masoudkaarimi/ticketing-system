@@ -23,8 +23,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/tickets/', include('ticket.urls',namespace="cmsApi")),
-    path('api/account/', include('account.urls',namespace="ticketApi")),
+    path('api/tickets/', include('ticket.urls',namespace="ticketApi")),
+    path('api/account/', include('account.urls',namespace="accountApi")),
     path('api/cms/', include('cms.urls',namespace="cmsApi")),
     path('api-auth/', include('rest_framework.urls',)),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
