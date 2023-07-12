@@ -26,7 +26,7 @@ class BasicPrioritySerializer(serializers.ModelSerializer):
 class BasicMediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Media
-        fields = ["image"]
+        fields = ["id", "image", "ticket"]
 
 
 class RecursiveTicketField(serializers.Serializer):

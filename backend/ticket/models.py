@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel
 from mptt.fields import TreeForeignKey
 from django.contrib.auth.models import User
-
+from datetime import datetime
 # Create your models here.
 
 
@@ -102,7 +102,7 @@ class Ticket(MPTTModel):
 
 
 def media_dynamic(instance, filename):
-    timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     return f'ticket/images/{timestamp}-{filename}'
 
 

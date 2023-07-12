@@ -2,9 +2,11 @@ from django.shortcuts import render
 from rest_framework import generics, status, permissions, authentication, views, pagination
 from rest_framework.response import Response
 from .models import Category, Priority, Ticket
-from .serializers import BasicCategorySerializer, BasicPrioritySerializer, BasicTicketSerializer, TicketCreateSerializer
+from .serializers import BasicCategorySerializer, BasicPrioritySerializer, BasicTicketSerializer, \
+    TicketCreateSerializer, BasicMediaSerializer
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 
 # Create your views here.
@@ -41,6 +43,7 @@ class TicketView(views.APIView):
     permissions = [permissions.AllowAny]
     pagination_class = pagination.PageNumberPagination
     serializer_class = BasicTicketSerializer
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     @extend_schema(tags=["Ticket"])
     def get(self, request):
@@ -74,16 +77,32 @@ class TicketView(views.APIView):
 
     @extend_schema(tags=["Ticket"])
     def post(self, request, **kwargs):
+        request.data._mutable = True
         data = request.data
+        files = request.FILES["attachment"]
         user = request.user
-        print(data)
         data["user"] = user.id
+        request.data._mutable = False
         serializer = TicketCreateSerializer(data=data, context={"request": request}, many=False)
         if serializer.is_valid():
-            serializer.save()
+            instance = serializer.save()
+            prep_data = {
+                "ticket": instance.id,
+                "image": files
+            }
+            attachment_data = None
+            media_serializer = BasicMediaSerializer(data=prep_data, context={"request": request}, many=False)
+            if media_serializer.is_valid():
+                media_serializer.save()
+                attachment_data = media_serializer.data
+            else:
+                print(media_serializer.errors)
+
+            serializer_data = serializer.data
+            serializer_data["attachment"] = attachment_data
             response = {
                 "success": True,
-                "results": serializer.data,
+                "results": serializer_data,
             }
             return Response(response, status=status.HTTP_201_CREATED)
         else:
