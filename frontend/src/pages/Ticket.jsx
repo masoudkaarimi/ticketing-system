@@ -11,6 +11,7 @@ const Ticket = () => {
 	const ticketQuery = useQuery({
 		queryKey: ['tickets', id],
 		queryFn: () => retrieveTicketApi(id),
+		refetchOnWindowFocus: false,
 	});
 
 	return (
