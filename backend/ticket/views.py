@@ -79,7 +79,7 @@ class TicketView(views.APIView):
     def post(self, request, **kwargs):
         request.data._mutable = True
         data = request.data
-        files = request.FILES["attachment"]
+        files = request.FILES.get("attachment")
         user = request.user
         data["user"] = user.id
         request.data._mutable = False
