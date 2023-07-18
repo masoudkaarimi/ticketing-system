@@ -49,7 +49,7 @@ class TicketView(views.APIView):
     def get(self, request):
         user = request.user
         try:
-            queryset = Ticket.objects.prefetch_related().filter(level=0)
+            queryset = Ticket.objects.filter(level=0)
             if queryset.exists():
                 paginator = self.pagination_class()
                 paginator.page_size = 25
@@ -94,15 +94,12 @@ class TicketView(views.APIView):
             media_serializer = BasicMediaSerializer(data=prep_data, context={"request": request}, many=False)
             if media_serializer.is_valid():
                 media_serializer.save()
+                attachment_data = media_serializer.data
             else:
                 print(media_serializer.errors)
 
-            serializer_data = self.serializer_class(
-                instance,
-                many=False,
-                read_only=True,
-                context={"request": request}
-            ).data
+            serializer_data = serializer.data
+            serializer_data["attachment"] = attachment_data
             response = {
                 "success": True,
                 "results": serializer_data,
