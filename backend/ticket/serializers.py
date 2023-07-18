@@ -41,6 +41,7 @@ class TicketCreateSerializer(serializers.ModelSerializer):
         fields = ["id", "category", "user", "status", "title", "message", "priority", "parent", ]
 
 
+
 class BasicTicketSerializer(serializers.ModelSerializer):
     category = BasicCategorySerializer()
     priority = BasicPrioritySerializer()
