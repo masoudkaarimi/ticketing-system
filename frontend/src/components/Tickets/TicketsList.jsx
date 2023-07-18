@@ -12,7 +12,7 @@ const TicketsList = () => {
 		queryFn: getTicketsAdminApi,
 	});
 
-	return <MyTable data={ticketsQuery?.data?.results} keys={TICKETS_HEADERS} isLoading={ticketsQuery.isLoading} />;
+	return <MyTable data={ticketsQuery?.data?.results?.length > 0 ?ticketsQuery?.data?.results : [] } keys={TICKETS_HEADERS} isLoading={ticketsQuery.isLoading} />;
 };
 
 const TICKETS_HEADERS = [

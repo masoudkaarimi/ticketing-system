@@ -69,4 +69,4 @@ class TicketSerializer(serializers.ModelSerializer):
 
     def get_attachment(self, obj):
         query = Media.objects.filter(ticket_id=obj.id, is_active=True)
-        return MediaSerializer(query, read_only=True, many=False, context=self.context).data
+        return MediaSerializer(query, many=True, context=self.context).data
