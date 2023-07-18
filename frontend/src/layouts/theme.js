@@ -1,4 +1,4 @@
-import { amber, blue, green, grey, lightGreen, red, teal } from '@mui/material/colors';
+import { amber, blue, green, grey, indigo, lightGreen, red, teal } from "@mui/material/colors";
 import { createTheme } from '@mui/material/styles';
 import { createContext, useMemo, useState } from 'react';
 
@@ -16,10 +16,10 @@ export const themeSettings = (mode) => {
 							contrastText: '#fff',
 						},
 						secondary: {
-							light: blue[100],
-							main: blue[200],
-							dark: blue[300],
-							contrast: blue[700],
+							light: indigo[300],
+							main: indigo[500],
+							dark: indigo[700],
+							contrast: indigo['A100'],
 							contrastText: '#fff',
 						},
 						extra: {
