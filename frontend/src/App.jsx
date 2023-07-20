@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import RestrictPage from './RestrictPage.jsx';
+import AddTicket from "./pages/AddTicket";
+import RestrictPage from './RestrictPage';
 import { checkAuth, requestRefreshToken } from './features/redux/actions/authActions';
-import MainLayout from './layouts/index.jsx';
+import MainLayout from './layouts';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Ticket from './pages/Ticket.jsx';
+import Ticket from './pages/Ticket';
 
 let access_token, refresh_token;
 
@@ -66,6 +67,15 @@ function App() {
 						element={
 							<RestrictPage path='/login' type='isAuthenticated'>
 								<Ticket />
+							</RestrictPage>
+						}
+					/>
+					<Route
+						path='/tickets/add'
+						index
+						element={
+							<RestrictPage path='/login' type='isAuthenticated'>
+								<AddTicket />
 							</RestrictPage>
 						}
 					/>

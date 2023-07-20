@@ -4,7 +4,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login, register } from '../features/redux/actions/authActions';
+import { register } from '../features/redux/actions/authActions';
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -41,13 +41,7 @@ const Register = () => {
 
 		if (result?.success) {
 			toast.success('Your Account Created Successfully', { id: 'register-success' });
-			const data = dispatch(login({ username: formData.username, password: formData.password }));
-
-			if (data.results) {
-				toast.success(`Welcome back dear ${user.first_name}`, { id: 'login-success' });
-			} else {
-				toast.error(result?.error, { id: 'login-error' });
-			}
+			navigate('/');
 		} else {
 			toast.error(result?.error, { id: 'register-error' });
 		}

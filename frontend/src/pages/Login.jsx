@@ -26,8 +26,10 @@ const Login = () => {
 		const result = await dispatch(login(formData));
 
 		// if (Object.keys(result.results) > 0) {
-		if (result.results) {
-			toast.success(`Welcome back dear ${user.first_name}`, { id: 'login-success' });
+		console.log(result);
+
+		if (result?.results) {
+			toast.success(`Welcome back dear ${result?.results?.username}`, { id: 'login-success' });
 		} else {
 			toast.error(result?.error, { id: 'login-error' });
 		}

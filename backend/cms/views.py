@@ -10,7 +10,7 @@ from drf_spectacular.utils import extend_schema, OpenApiExample
 @extend_schema(tags=["CMS - Ticket"])
 class TicketModelViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAdminUser]
-    queryset = Ticket.objects.all()
+    queryset = Ticket.objects.filter(level=0)
     serializer_class = TicketSerializer
 
 

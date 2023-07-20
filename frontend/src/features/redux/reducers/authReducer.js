@@ -16,7 +16,7 @@ import {
 const initialState = {
 	isAuthenticated: false,
 	isLoading: false,
-	user: localStorage.getItem('user') || null,
+	user: JSON.parse(localStorage.getItem('user')) || null,
 };
 
 export const authReducer = (state = initialState, action) => {

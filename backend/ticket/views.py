@@ -49,7 +49,7 @@ class TicketView(views.APIView):
     def get(self, request):
         user = request.user
         try:
-            queryset = Ticket.objects.prefetch_related().filter(level=0)
+            queryset = Ticket.objects.prefetch_related().filter(user_id=user.id, level=0)
             if queryset.exists():
                 paginator = self.pagination_class()
                 paginator.page_size = 25
